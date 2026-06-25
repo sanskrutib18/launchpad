@@ -1,31 +1,33 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import SidebarItems from "../../../components/SidebarItems/SidebarItems";
-import styles from "./SideBar.module.scss"
+import styles from "./SideBar.module.scss";
 import { logout } from "../../../redux/authSlice";
-import type { SideBarProps } from "./Sidebar.types";
 
-const SideBar = ({handleSetOnboardHire}:SideBarProps) => {
-
-  const dispatch = useDispatch()
+const SideBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleApprovalQueueClick = () => {
-    console.log("approval")
-  }
+    navigate("approval-queue");
+  };
 
   const handleOnboardHireClick = () => {
-    handleSetOnboardHire(true)
-  }
+    navigate("onboard-new-hire");
+  };
 
   const handleLogout = () => {
-    // dispatch(logout)
-  }
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <section className={styles.background}>
       <SidebarItems cardTitle="Approval Queue" handleOnClick={handleApprovalQueueClick} />
-      <SidebarItems cardTitle="Onboard new hire" handleOnClick={handleOnboardHireClick} />
+      <SidebarItems cardTitle="Onboard New Hire" handleOnClick={handleOnboardHireClick} />
       <SidebarItems cardTitle="Logout" handleOnClick={handleLogout} />
     </section>
-  )
-}
+  );
+};
 
 export default SideBar;
